@@ -1,9 +1,11 @@
+import 'express-async-errors'
 import * as dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
 import jobRouter from './routers/jobRouter.js'
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js'
 
 const app = express()
 app.use(express.json())
@@ -19,11 +21,7 @@ app.use('*', (req, res) => {
   res.status(404).json({ msg: 'not found' })
 })
 
-// Error Handle
-app.use((err, req, res, next) => {
-  console.log(err)
-  res.status(500).json({ msg: 'something went wrong' })
-})
+app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 5100
 try {
