@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import morgan from 'morgan'
 import jobRouter from './routers/jobRouter.js'
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js'
+import { body, validationResult } from 'express-validator'
 
 const app = express()
 app.use(express.json())
