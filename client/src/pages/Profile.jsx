@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom'
 import { useNavigation, Form } from 'react-router-dom'
 import customFetch from '../utils/customFetch'
 import { toast } from 'react-toastify'
+import { SubmitBtn } from '../components'
 
 export const action = async ({ request }) => {
   const formData = await request.formData()
@@ -55,13 +56,7 @@ const Profile = () => {
           />
           <FormRow type="email" name="email" defaultValue={email} />
           <FormRow type="text" name="location" defaultValue={location} />
-          <button
-            className="btn btn-block form-btn"
-            type="submit"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'submitting...' : 'save changes'}
-          </button>
+          <SubmitBtn formBtn />
         </div>
       </Form>
     </Wrapper>
