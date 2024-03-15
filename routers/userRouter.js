@@ -6,7 +6,11 @@ import {
   getApplicationStats,
   updateUser,
 } from '../controllers/userController.js'
-import { authorizePermissions } from '../middleware/authMiddleware.js'
+import {
+  authorizePermissions,
+  checkForTestUser,
+} from '../middleware/authMiddleware.js'
+import upload from '../middleware/multerMiddleware.js'
 
 router.get('/current-user', getCurrentUser)
 router.get(
@@ -14,5 +18,11 @@ router.get(
   authorizePermissions('admin'),
   getApplicationStats
 )
-router.patch('/update-user', validateUpdateUserInput, updateUser)
+router.patch(
+  '/update-user',
+  upload.single('avatar'),
+  validateUpdateUserInput,
+  checkForTestUser,
+  updateUser
+)
 export default router
