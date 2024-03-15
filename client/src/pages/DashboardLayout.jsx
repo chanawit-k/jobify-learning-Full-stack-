@@ -2,7 +2,7 @@ import { Outlet, redirect, useLoaderData, useNavigate } from 'react-router-dom'
 import customFetch from '../utils/customFetch'
 import Wrapper from '../assets/wrappers/Dashboard'
 import { Navbar, BigSidebar, SmallSidebar } from '../components'
-
+import { toast } from 'react-toastify'
 import { useState, createContext, useContext } from 'react'
 
 const DashboardContext = createContext()
