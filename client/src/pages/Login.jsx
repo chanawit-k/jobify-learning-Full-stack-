@@ -38,8 +38,8 @@ const Login = () => {
         <Logo />
         <h4>Login</h4>
         {errors && <p style={{ color: 'red' }}>{errors.msg}</p>}
-        <FormRow type="email" name="email" defaultValue="john@gmail.com" />
-        <FormRow type="password" name="password" defaultValue="secret123" />
+        <FormRow type="email" name="email" defaultValue="testmern@gmail.com" />
+        <FormRow type="password" name="password" defaultValue="12345678" />
         <button type="submit" className="btn btn-block">
           {isSubmitting ? 'submitting...' : 'submit'}
         </button>
