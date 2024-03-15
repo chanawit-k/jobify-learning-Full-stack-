@@ -21,8 +21,9 @@ export const authenticateUser = async (req, res, next) => {
 
 export const authorizePermissions = (...roles) => {
   return (req, res, next) => {
+    console.log(`Role --> ${req.user.role}`)
     if (!roles.includes(req.user.role)) {
-      throw new UnauthorizedError('Unauthorized to access this route')
+      throw new UnauthorizedError('Unauthorized to access this route ')
     }
     next()
   }
