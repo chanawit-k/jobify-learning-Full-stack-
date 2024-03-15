@@ -1,5 +1,5 @@
 import { FaSuitcaseRolling, FaCalendarCheck } from 'react-icons/fa'
-
+import { StatItem } from '../components'
 import { useLoaderData, redirect } from 'react-router-dom'
 import customFetch from '../utils/customFetch'
 import Wrapper from '../assets/wrappers/StatsContainer'
@@ -19,7 +19,20 @@ const Admin = () => {
 
   return (
     <Wrapper>
-      <h2>admin page</h2>
+      <StatItem
+        title="current users"
+        count={users}
+        color="#e9b949"
+        bcg="#fcefc7"
+        icon={<FaSuitcaseRolling />}
+      />
+      <StatItem
+        title="total jobs"
+        count={jobs}
+        color="#647acb"
+        bcg="#e0e8f9"
+        icon={<FaCalendarCheck />}
+      />
     </Wrapper>
   )
 }
