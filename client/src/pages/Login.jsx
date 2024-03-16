@@ -4,7 +4,7 @@ import {
   Link,
   Form,
   redirect,
-  useNavigation,
+  useNavigate,
   useActionData,
 } from 'react-router-dom'
 import customFetch from '../utils/customFetch'
@@ -31,6 +31,8 @@ export const action = async ({ request }) => {
 
 const Login = () => {
   const errors = useActionData()
+  const navigate = useNavigate()
+
   const loginDemoUser = async () => {
     const data = {
       email: 'test@test.com',
@@ -44,6 +46,7 @@ const Login = () => {
       toast.error(error?.response?.data?.msg)
     }
   }
+
   return (
     <Wrapper>
       <Form method="post" className="form">
