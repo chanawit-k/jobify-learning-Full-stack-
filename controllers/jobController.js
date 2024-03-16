@@ -86,5 +86,5 @@ export const showStats = async (req, res) => {
     })
     .reverse()
 
-  res.status(StatusCodes.OK).json({ stats, monthlyApplications })
+  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications })
 }
