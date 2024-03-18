@@ -19,9 +19,13 @@ export const getApplicationStats = async (req, res) => {
 export const updateUser = async (req, res) => {
   const newUser = { ...req.body }
   delete newUser.password
+  console.log(`----------------have file : ${req.file}----------------`)
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path)
+    console.log(`----------------upload success----------------`)
     await fs.unlink(req.file.path)
+    console.log(`----------------delete file----------------`)
+    console.log(`------------------- url : ${response.secure_url}`)
     newUser.avatar = response.secure_url
     newUser.avatarPublicId = response.public_id
   }
