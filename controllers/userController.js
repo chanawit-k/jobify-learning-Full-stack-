@@ -5,6 +5,7 @@ import cloudinary from 'cloudinary'
 import { promises as fs } from 'fs'
 
 export const getCurrentUser = async (req, res) => {
+  console.log(`---------------------------- get vurrent user `)
   const user = await User.findOne({ _id: req.user.userId })
   const userWithoutPassword = user.toJSON()
   res.status(StatusCodes.OK).json({ user: userWithoutPassword })
