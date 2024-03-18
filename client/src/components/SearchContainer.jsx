@@ -13,6 +13,7 @@ const SearchContainer = () => {
     let timeout
     return (e) => {
       const form = e.currentTarget.form
+      console.log(form)
       clearTimeout(timeout)
       timeout = setTimeout(() => {
         onChange(form)
