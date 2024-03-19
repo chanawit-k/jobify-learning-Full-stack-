@@ -4,6 +4,8 @@ import Wrapper from '../assets/wrappers/Dashboard'
 import { Navbar, BigSidebar, SmallSidebar } from '../components'
 import { toast } from 'react-toastify'
 import { useState, createContext, useContext } from 'react'
+import { Loading } from '../components'
+import { useNavigation } from 'react-router-dom'
 
 const DashboardContext = createContext()
 
@@ -19,6 +21,8 @@ export const loader = async () => {
 const Dashboard = ({ isDarkThemeEnabled }) => {
   const user = useLoaderData()
   const navigate = useNavigate()
+  const navigation = useNavigation()
+  const isPageLoading = navigation.state === 'loading'
 
   const [showSidebar, setShowSidebar] = useState(false)
   const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled)
@@ -58,7 +62,7 @@ const Dashboard = ({ isDarkThemeEnabled }) => {
           <div>
             <Navbar />
             <div className="dashboard-page">
-              <Outlet context={{ user }} />
+              {isPageLoading ? <Loading /> : <Outlet context={{ user }} />}
             </div>
           </div>
         </main>
