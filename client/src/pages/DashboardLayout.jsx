@@ -6,20 +6,29 @@ import { toast } from 'react-toastify'
 import { useState, createContext, useContext } from 'react'
 import { Loading } from '../components'
 import { useNavigation } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
 const DashboardContext = createContext()
 
-export const loader = async () => {
-  try {
+const currentUserQuery = {
+  queryKey: ['user'],
+  queryFn: async () => {
     const { data } = await customFetch('/users/current-user')
     return data
+  },
+}
+
+export const loader = (queryClient) => async () => {
+  try {
+    return await queryClient.ensureQueryData(currentUserQuery)
   } catch (error) {
     return redirect('/')
   }
 }
 
 const Dashboard = ({ isDarkThemeEnabled }) => {
-  const user = useLoaderData()
+  const { user } = useQuery(currentUserQuery).data
+  console.log(user)
   const navigate = useNavigate()
   const navigation = useNavigation()
   const isPageLoading = navigation.state === 'loading'
