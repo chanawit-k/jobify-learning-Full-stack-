@@ -20,7 +20,6 @@ export const getApplicationStats = async (req, res) => {
 export const updateUser = async (req, res) => {
   const newUser = { ...req.body }
   delete newUser.password
-  console.log(`----------------have file : ${req.file}----------------`)
   if (req.file) {
     const file = formatImage(req.file)
     const response = await cloudinary.v2.uploader.upload(file)
