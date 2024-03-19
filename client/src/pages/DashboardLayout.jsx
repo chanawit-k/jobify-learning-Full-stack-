@@ -9,7 +9,11 @@ import { useNavigation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
 const DashboardContext = createContext()
-
+export const checkDefaultTheme = () => {
+  const isDarkTheme = localStorage.getItem('darkTheme') === 'true'
+  document.body.classList.toggle('dark-theme', isDarkTheme)
+  return isDarkTheme
+}
 const currentUserQuery = {
   queryKey: ['user'],
   queryFn: async () => {
@@ -26,15 +30,14 @@ export const loader = (queryClient) => async () => {
   }
 }
 
-const Dashboard = ({ isDarkThemeEnabled }) => {
+const Dashboard = ({ queryClient }) => {
   const { user } = useQuery(currentUserQuery).data
-  console.log(user)
   const navigate = useNavigate()
   const navigation = useNavigation()
   const isPageLoading = navigation.state === 'loading'
 
   const [showSidebar, setShowSidebar] = useState(false)
-  const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled)
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme)
 
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme
@@ -50,6 +53,7 @@ const Dashboard = ({ isDarkThemeEnabled }) => {
   const logoutUser = async () => {
     navigate('/')
     await customFetch.get('/auth/logout')
+    queryClient.invalidateQueries()
     toast.success('Logging out...')
   }
 
