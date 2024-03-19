@@ -28,12 +28,6 @@ import { action as profileAction } from './pages/Profile'
 import { loader as statLoader } from './pages/Stats'
 import { ErrorElement } from './components'
 
-const checkDefaultTheme = () => {
-  const isDarkTheme = localStorage.getItem('darkTheme') === 'true'
-  document.body.classList.toggle('dark-theme', isDarkTheme)
-  return isDarkTheme
-}
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -41,8 +35,6 @@ const queryClient = new QueryClient({
     },
   },
 })
-
-const isDarkThemeEnabled = checkDefaultTheme()
 
 const router = createBrowserRouter([
   {
@@ -72,7 +64,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <AddJob />,
-            action: addJobAction,
+            action: addJobAction(queryClient),
           },
           {
             path: 'stats',
@@ -83,7 +75,7 @@ const router = createBrowserRouter([
           {
             path: 'all-jobs',
             element: <AllJobs />,
-            loader: allJobsLoader,
+            loader: allJobsLoader(queryClient),
           },
 
           {
@@ -99,8 +91,8 @@ const router = createBrowserRouter([
           {
             path: 'edit-job/:id',
             element: <EditJob />,
-            loader: editJobLoader,
-            action: editJobAction,
+            loader: editJobLoader(queryClient),
+            action: editJobAction(queryClient),
           },
           { path: 'delete-job/:id', action: deleteJobAction },
         ],
